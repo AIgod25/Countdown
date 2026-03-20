@@ -178,8 +178,6 @@ body{font-family:'Jost',sans-serif;background:#fceef5;overflow-x:hidden;cursor:n
 .cp{position:fixed;pointer-events:none;z-index:9998;animation:cfall linear forwards;border-radius:2px;}
 @keyframes cfall{0%{transform:translateY(-20px) rotate(0deg);opacity:1;}100%{transform:translateY(105vh) rotate(1080deg);opacity:0;}}
 @keyframes fadeUp{from{opacity:0;transform:translateY(28px);}to{opacity:1;transform:translateY(0);}}
-/* hidden until countdown hits zero */
-#post-birthday{display:none;flex-direction:column;align-items:center;gap:4rem;width:100%;}
 @media(max-width:520px){
   .num-box{width:68px;height:68px;font-size:2rem;border-radius:14px;}
   .sep{font-size:1.4rem;}
@@ -203,7 +201,7 @@ body{font-family:'Jost',sans-serif;background:#fceef5;overflow-x:hidden;cursor:n
   <div class="hero">
     <div class="eyebrow">✦ &nbsp; a little something for you &nbsp; ✦</div>
     <h1>Her Birthday</h1>
-    <div class="sub">22 March · 12:00 AM 🌙</div>
+    <div class="sub">22 March · Midnight 🌙</div>
   </div>
 
   <div class="sec-label">⏳ counting down…</div>
@@ -228,8 +226,6 @@ body{font-family:'Jost',sans-serif;background:#fceef5;overflow-x:hidden;cursor:n
       <p>Wishing you all the love, sparkle &amp; joy today 🌸</p>
     </div>
   </div>
-
-  <div id="post-birthday">
 
   <div class="divider"><hr/><span>🎵</span><hr/></div>
 
@@ -290,7 +286,7 @@ body{font-family:'Jost',sans-serif;background:#fceef5;overflow-x:hidden;cursor:n
   <div class="sec-label">💌 a letter for you</div>
   <div class="letter-section">
     <div class="letter-card">
-      <div class="letter-head">Dear You,</div>
+      <div class="letter-head">Dear Adrita🎀,</div>
       <div class="letter-body" id="lbody"><span id="cblink"></span></div>
       <div class="letter-sign" id="lsign">— with love &amp; sparkle 🌸</div>
     </div>
@@ -312,9 +308,7 @@ body{font-family:'Jost',sans-serif;background:#fceef5;overflow-x:hidden;cursor:n
 
   <div class="bottom-quote">"She leaves a little sparkle wherever she goes." 🌟</div>
 
-  </div><!-- /post-birthday -->
-
-</div><!-- /page -->
+</div>
 
 <script>
 const cur=document.getElementById('cur');
@@ -385,7 +379,7 @@ btnBack.addEventListener('click',()=>{audio.currentTime=Math.max(0,audio.current
 btnFwd.addEventListener('click',()=>{audio.currentTime=Math.min(audio.duration||0,audio.currentTime+10);});
 
 /* countdown */
-const TARGET=new Date('2026-03-22T00:00:00');
+const TARGET=new Date('2026-03-22T23:59:59');
 const START=new Date();
 const prv={};
 const pad=n=>String(n).padStart(2,'0');
@@ -398,16 +392,7 @@ function tick(){
     document.querySelector('.sparkles').style.display='none';
     document.getElementById('tagline').style.display='none';
     document.getElementById('bday-screen').style.display='flex';
-    blast();
-    // reveal all hidden sections with stagger
-    setTimeout(()=>{
-      const pb=document.getElementById('post-birthday');
-      pb.style.display='flex';
-      pb.style.animation='fadeUp 1.2s ease forwards';
-    }, 800);
-    // start typewriter after section appears
-    setTimeout(typeIt, 2000);
-    return;
+    blast();return;
   }
   const tot=Math.floor(diff/1000);
   setN('days',Math.floor(tot/86400));setN('hours',Math.floor((tot%86400)/3600));setN('mins',Math.floor((tot%3600)/60));setN('secs',tot%60);
@@ -447,7 +432,7 @@ function typeIt(){
     li++;setTimeout(typeIt,'.!?'.includes(ch)?90:ch===','?60:26);
   }else{cblink.style.display='none';lsign.style.opacity='1';}
 }
-// typewriter starts only after birthday reveal
+setTimeout(typeIt,1400);
 
 function blast(){
   const cols=['#f48fb1','#ce93d8','#fff','#f8bbd0','#e1bee7','#ffd700','#ffb3c6','#c5a3ff'];
